@@ -12,13 +12,13 @@ public class SimulationPanel extends JPanel {
     static List<Node2D> points = new ArrayList<>();
     static List<Node2D> uselessPoints = new ArrayList<>();
     static List<Triangle> triangles = new ArrayList<>();
+    static List<Circle> circles = new ArrayList<>();
 
     public SimulationPanel(ImageData imageData) {
         super();
         this.imageData = imageData;
         this.setPreferredSize(new Dimension(imageData.width, imageData.height));
         points = imageData.keyPoints;
-        //testData();
         addSuperTriangle();
     }
 
@@ -31,6 +31,9 @@ public class SimulationPanel extends JPanel {
 
         for (Triangle triangle : triangles) {
             triangle.paintComponent(g2D);
+        }
+        for (Circle circle : circles) {
+            circle.paintComponent(g2D);
         }
 
         for (Node2D node2D : points) {
@@ -51,5 +54,6 @@ public class SimulationPanel extends JPanel {
         Triangle superTriangle = new Triangle(A, B, C);
         triangles.add(superTriangle);
         uselessPoints.add(A);   uselessPoints.add(B);   uselessPoints.add(C);
+        circles.add(new Circle(superTriangle));
     }
 }

@@ -17,13 +17,13 @@ public class MyFrame extends JFrame {
 
     public MyFrame(ImageData imageData) {
 
-        ImageIcon icon = new ImageIcon("input.jpg");
+        ImageIcon icon = new ImageIcon("src/triangle.jpg");
         centerPanel = new SimulationPanel(imageData);
 
         int width = 718 + vGap * 2;
         int height = 540 + hGap * 2;
         this.setSize(width, height);
-        this.setTitle("QuadTree Visualization");
+        this.setTitle("Delaunay Triangulation Visualization");
         this.getContentPane().setBackground(Color.DARK_GRAY);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
