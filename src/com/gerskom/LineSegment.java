@@ -13,7 +13,6 @@ public class LineSegment {
 
     public void paintComponent (Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
-
         g2D.setPaint(new Color(153,51,153));
         g2D.setStroke(new BasicStroke(2f));
         g2D.drawLine(p1.x,p1.y,p2.x,p2.y);

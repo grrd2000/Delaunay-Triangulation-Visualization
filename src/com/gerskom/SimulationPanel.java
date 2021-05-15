@@ -23,26 +23,22 @@ public class SimulationPanel extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g.create();
 
         g2D.drawImage(imageData.image, 0, 0, null);
 
-        for (Triangle triangle : triangles) {
+        for (Triangle triangle : triangles)
             triangle.paintComponent(g2D);
-        }
-        for (Circle circle : circles) {
+
+        for (Circle circle : circles)
             circle.paintComponent(g2D);
-        }
 
-        for (Node2D node2D : points) {
+        for (Node2D node2D : points)
             node2D.paintComponent(g2D);
-        }
 
-        for (Node2D node2D : uselessPoints) {
+        for (Node2D node2D : uselessPoints)
             node2D.paintComponent(g2D);
-        }
 
         g2D.dispose();
     }
@@ -54,6 +50,6 @@ public class SimulationPanel extends JPanel {
         Triangle superTriangle = new Triangle(A, B, C);
         triangles.add(superTriangle);
         uselessPoints.add(A);   uselessPoints.add(B);   uselessPoints.add(C);
-        circles.add(new Circle(superTriangle));
+        //circles.add(new Circle(superTriangle));
     }
 }

@@ -18,7 +18,6 @@ public class DelaunayAlgorithm {
     public List<Triangle> mesh() {
 
 
-
         return triangleList;
     }
 }
