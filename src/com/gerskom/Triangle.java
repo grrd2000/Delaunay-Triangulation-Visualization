@@ -36,7 +36,7 @@ public class Triangle {
     }
 
     public boolean isInsideCircle(Node2D p) {
-        return pow((this.circle.o.x - p.x),2) + (pow((this.circle.o.y - p.y),2)) < pow(this.circle.r,2) - 0.00000001;
+        return pow((this.circle.o.x - p.x),2) + (pow((this.circle.o.y - p.y),2)) < pow(this.circle.r,2);
     }
 
     public void paintComponent (Graphics g) {
