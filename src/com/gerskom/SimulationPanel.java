@@ -19,7 +19,7 @@ public class SimulationPanel extends JPanel {
         this.imageData = imageData;
         this.setPreferredSize(new Dimension(imageData.width, imageData.height));
         points = imageData.keyPoints;
-        addSuperTriangle();
+        delaunayAlgorithm();
     }
 
     public void paintComponent(Graphics g) {
@@ -43,13 +43,19 @@ public class SimulationPanel extends JPanel {
         g2D.dispose();
     }
 
-    public void addSuperTriangle() {
+    public Triangle addSuperTriangle() {
         Node2D A = new Node2D(this.imageData.width/2, 20);
-        Node2D B = new Node2D(this.imageData.width - 75,  this.imageData.height - 75);
-        Node2D C = new Node2D( 75, this.imageData.height - 75);
+        Node2D B = new Node2D(this.imageData.width - 110,  this.imageData.height - 110);
+        Node2D C = new Node2D( 75, this.imageData.height - 110);
         Triangle superTriangle = new Triangle(A, B, C);
         triangles.add(superTriangle);
         uselessPoints.add(A);   uselessPoints.add(B);   uselessPoints.add(C);
-        //circles.add(new Circle(superTriangle));
+        return superTriangle;
+    }
+
+    public void delaunayAlgorithm() {
+        List<Triangle> result = new DelaunayAlgorithm(points, addSuperTriangle()).mesh();
+        triangles.addAll(result);
+        System.out.println("Number of triangles in this mesh: " + result.size());
     }
 }

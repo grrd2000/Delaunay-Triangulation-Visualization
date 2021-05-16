@@ -20,8 +20,8 @@ public class MyFrame extends JFrame {
         ImageIcon icon = new ImageIcon("src/triangle.jpg");
         centerPanel = new SimulationPanel(imageData);
 
-        int width = 718 + vGap * 2;
-        int height = 540 + hGap * 2;
+        int width = 1218 + vGap * 2;
+        int height = 890 + hGap * 2;
         this.setSize(width, height);
         this.setTitle("Delaunay Triangulation Visualization");
         this.getContentPane().setBackground(Color.DARK_GRAY);

@@ -29,6 +29,6 @@ public class ImageData {
                 }
             }
         }
-        System.out.println(keyPoints.size());
+        System.out.println("Number of nodes: " + keyPoints.size());
     }
 }
