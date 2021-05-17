@@ -1,6 +1,8 @@
 package com.gerskom;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Math.pow;
 
@@ -14,6 +16,9 @@ public class Triangle {
     LineSegment BC;
     LineSegment CA;
 
+    List<Node2D> vertices = new ArrayList<>();
+    List<LineSegment> edges = new ArrayList<>();
+
     Circle circle;
 
     public Triangle(Node2D a, Node2D b, Node2D c) {
@@ -24,6 +29,30 @@ public class Triangle {
         this.BC = new LineSegment(b, c);
         this.CA = new LineSegment(c, a);
         this.circle = new Circle(this);
+        assert false;
+        this.edges.add(this.AB);
+        this.edges.add(this.BC);
+        this.edges.add(this.CA);
+        this.vertices.add(this.A);
+        this.vertices.add(this.B);
+        this.vertices.add(this.C);
+    }
+
+    public Triangle(Node2D A, LineSegment BC) {
+        this.A = A;
+        this.B = BC.p1;
+        this.C = BC.p2;
+        this.AB = new LineSegment(this.A, this.B);
+        this.BC = new LineSegment(this.B, this.C);
+        this.CA = new LineSegment(this.C, this.A);
+        this.circle = new Circle(this);
+        assert false;
+        this.edges.add(this.AB);
+        this.edges.add(this.BC);
+        this.edges.add(this.CA);
+        this.vertices.add(this.A);
+        this.vertices.add(this.B);
+        this.vertices.add(this.C);
     }
 
     public Triangle(Node2D a, Node2D b, Node2D c, LineSegment AB, LineSegment BC, LineSegment CA) {
@@ -33,6 +62,13 @@ public class Triangle {
         this.AB = AB;
         this.BC = BC;
         this.CA = CA;
+        assert false;
+        this.edges.add(this.AB);
+        this.edges.add(this.BC);
+        this.edges.add(this.CA);
+        this.vertices.add(this.A);
+        this.vertices.add(this.B);
+        this.vertices.add(this.C);
     }
 
     public boolean isInsideCircle(Node2D p) {
