@@ -48,8 +48,8 @@ public class SimulationPanel extends JPanel {
         Node2D B = new Node2D(this.imageData.width - 110,  this.imageData.height - 110);
         Node2D C = new Node2D( 75, this.imageData.height - 110);
         Triangle superTriangle = new Triangle(A, B, C);
-        triangles.add(superTriangle);
-        uselessPoints.add(A);   uselessPoints.add(B);   uselessPoints.add(C);
+        //triangles.add(superTriangle);
+        //uselessPoints.add(A);   uselessPoints.add(B);   uselessPoints.add(C);
         return superTriangle;
     }
 

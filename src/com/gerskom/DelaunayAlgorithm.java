@@ -50,8 +50,17 @@ public class DelaunayAlgorithm {
                 for(int j = 0; j < 3; j++) {
                     if (triangulation.get(i).vertices.get(j).equals(superVertex)) {
                         triangulation.remove(triangulation.get(i));
+                        i--;
                         break;
                     }
+                }
+            }
+        }
+
+        for(int i = 0; i < triangulation.size(); i++) {
+            for(int j = 0; j < triangulation.size(); j++) {
+                if(triangulation.get(i).equals(triangulation.get(j))){
+                    triangulation.remove(j);
                 }
             }
         }
