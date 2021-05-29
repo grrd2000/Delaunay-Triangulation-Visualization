@@ -9,9 +9,9 @@ public class DelaunayAlgorithm {
     Triangle superTriangle;
 
     public DelaunayAlgorithm(List<Node2D> nodes, Triangle superTriangle) {
-        //this.pointsList.add(superTriangle.A);
-        //this.pointsList.add(superTriangle.B);
-        //this.pointsList.add(superTriangle.C);
+        this.pointsList.add(superTriangle.A);
+        this.pointsList.add(superTriangle.B);
+        this.pointsList.add(superTriangle.C);
         this.pointsList.addAll(nodes);
         this.superTriangle = superTriangle;
         this.triangulation.add(this.superTriangle);
@@ -31,11 +31,14 @@ public class DelaunayAlgorithm {
             for(Triangle triangle : badTriangles) {
                 edges.addAll(triangle.edges);
             }
+
             for(int i = 0; i < badTriangles.size(); i++) {
-                for(int j = i + 1; j < badTriangles.size(); j++) {
-                    if(edges.get(i).equals(edges.get(j))) {
-                        edges.remove(j);
-                        j--;
+                for(LineSegment badEdge : badTriangles.get(i).edges) {
+                    for(int j = 0; j < edges.size(); j++) {
+                        if(!badEdge.equals(edges.get(j)) && i != j) {
+                            edges.remove(j);
+                            j--;
+                        }
                     }
                 }
             }
@@ -59,10 +62,16 @@ public class DelaunayAlgorithm {
 
         for(int i = 0; i < triangulation.size(); i++) {
             for(int j = 0; j < triangulation.size(); j++) {
-                if(triangulation.get(i).equals(triangulation.get(j))){
+                if(triangulation.get(i).isTheSame(triangulation.get(j)) && i != j){
                     triangulation.remove(j);
+                    j--;
                 }
             }
+        }
+
+        for(int i = 0; i < triangulation.size(); i++) {
+            System.out.println(i + ":");
+            triangulation.get(i).print();
         }
 
         return triangulation;

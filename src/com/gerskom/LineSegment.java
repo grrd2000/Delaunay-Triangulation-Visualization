@@ -1,6 +1,7 @@
 package com.gerskom;
 
 import java.awt.*;
+import java.util.List;
 
 public class LineSegment {
     Node2D p1;
@@ -9,6 +10,12 @@ public class LineSegment {
     public LineSegment(Node2D p1, Node2D p2) {
         this.p1 = p1;
         this.p2 = p2;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return  (this.p1.equals(((LineSegment) obj).p1) && this.p2.equals(((LineSegment) obj).p2)) ||
+                (this.p1.equals(((LineSegment) obj).p2) && this.p2.equals(((LineSegment) obj).p1));
     }
 
     public void paintComponent (Graphics g) {

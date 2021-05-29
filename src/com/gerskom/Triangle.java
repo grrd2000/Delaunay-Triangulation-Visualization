@@ -75,6 +75,21 @@ public class Triangle {
         return pow((this.circle.o.x - p.x),2) + (pow((this.circle.o.y - p.y),2)) < pow(this.circle.r,2);
     }
 
+    public boolean isTheSame(Triangle t) {
+        return  (this.A.equals(t.A) && this.B.equals(t.B) && this.C.equals(t.C)) ||
+                (this.A.equals(t.B) && this.B.equals(t.C) && this.C.equals(t.A)) ||
+                (this.A.equals(t.B) && this.B.equals(t.A) && this.C.equals(t.C)) ||
+                (this.A.equals(t.C) && this.B.equals(t.B) && this.C.equals(t.A)) ||
+                (this.A.equals(t.C) && this.B.equals(t.A) && this.C.equals(t.B)) ||
+                (this.A.equals(t.A) && this.B.equals(t.C) && this.C.equals(t.B));
+    }
+
+    public void print() {
+        this.A.print();
+        this.B.print();
+        this.C.print();
+    }
+
     public void paintComponent (Graphics g) {
 
         int[] xPoints = {(int)A.x, (int)B.x, (int)C.x};

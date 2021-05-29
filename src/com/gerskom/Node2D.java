@@ -16,6 +16,11 @@ public class Node2D {
         System.out.println("P[" + x + ", " + y + "]");
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.x == ((Node2D) obj).x && this.y == ((Node2D) obj).y;
+    }
+
     public void paintComponent (Graphics g) {
 
         Graphics2D g2D = (Graphics2D) g;
