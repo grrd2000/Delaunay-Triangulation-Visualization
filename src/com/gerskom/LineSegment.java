@@ -1,7 +1,6 @@
 package com.gerskom;
 
 import java.awt.*;
-import java.util.List;
 
 public class LineSegment {
     Node2D p1;

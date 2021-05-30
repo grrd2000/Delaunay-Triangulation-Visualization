@@ -9,9 +9,9 @@ public class DelaunayAlgorithm {
     Triangle superTriangle;
 
     public DelaunayAlgorithm(List<Node2D> nodes, Triangle superTriangle) {
-        this.pointsList.add(superTriangle.A);
-        this.pointsList.add(superTriangle.B);
-        this.pointsList.add(superTriangle.C);
+        //this.pointsList.add(superTriangle.A);
+        //this.pointsList.add(superTriangle.B);
+        //this.pointsList.add(superTriangle.C);
         this.pointsList.addAll(nodes);
         this.superTriangle = superTriangle;
         this.triangulation.add(this.superTriangle);
@@ -19,15 +19,47 @@ public class DelaunayAlgorithm {
 
     public List<Triangle> mesh() {
 
-        List<LineSegment> edges = new ArrayList<>();
-
         for(Node2D point : pointsList) {
+            List<Triangle> badTriangles = new ArrayList<>();
+            for(Triangle triangle : triangulation) {
+                if(triangle.isInsideCircle(point))
+                    badTriangles.add(triangle);
+            }
+            List<LineSegment> polygon = new ArrayList<>();
+            List<LineSegment> badEdges = new ArrayList<>();
+            for(Triangle triangle : badTriangles)
+                badEdges.addAll(triangle.edges);
+            for(Triangle badTriangle : badTriangles) {
+                for(LineSegment edge : badTriangle.edges) {
+                    int counter = 0;
+                    for(LineSegment badEdge : badEdges) {
+                        if(edge.equals(badEdge)) {
+                            counter++;
+                            break;
+                        }
+                    }
+                    if(counter == 1) polygon.add(edge);
+                }
+            }
+            triangulation.removeAll(badTriangles);
+            for(LineSegment edge : polygon) {
+                    triangulation.add(new Triangle(point, edge));
+            }
+        }
+
+
+
+
+       /* for(Node2D point : pointsList) {
             List<Triangle> badTriangles = new ArrayList<>();
             for(Triangle triangle : triangulation) {
                 if(triangle.isInsideCircle(point)) {
                     badTriangles.add(triangle);
                 }
             }
+
+            List<LineSegment> edges = new ArrayList<>();
+
             for(Triangle triangle : badTriangles) {
                 edges.addAll(triangle.edges);
             }
@@ -72,7 +104,7 @@ public class DelaunayAlgorithm {
         for(int i = 0; i < triangulation.size(); i++) {
             System.out.println(i + ":");
             triangulation.get(i).print();
-        }
+        }*/
 
         return triangulation;
     }
