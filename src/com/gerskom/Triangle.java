@@ -3,6 +3,7 @@ package com.gerskom;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static java.lang.Math.pow;
 
@@ -92,6 +93,8 @@ public class Triangle {
 
     public void paintComponent (Graphics g) {
 
+        Random rand = new Random();
+
         int[] xPoints = {(int)A.x, (int)B.x, (int)C.x};
         int[] yPoints = {(int)A.y, (int)B.y, (int)C.y};
 
@@ -101,6 +104,7 @@ public class Triangle {
         g2D.setStroke(new BasicStroke(2.25f));
         g2D.drawPolygon(xPoints, yPoints, 3);
         //g2D.setPaint(new Color(180,180,180));
-        //g2D.fillPolygon(xPoints, yPoints, 3);
+        g2D.setPaint(new Color(rand.nextInt(256),rand.nextInt(256),rand.nextInt(256)));
+        g2D.fillPolygon(xPoints, yPoints, 3);
     }
 }

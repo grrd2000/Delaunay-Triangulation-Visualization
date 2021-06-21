@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int choice = 5;
+        int choice = 7;
 
         try {
             switch(choice) {
@@ -14,6 +14,7 @@ public class Main {
                 case 4 -> new MyFrame(new ImageData("src/inputs/deltoid_shape_input.png"));       //4 nodes
                 case 5 -> new MyFrame(new ImageData("src/inputs/envelope_shape_input.png"));      //6 nodes
                 case 6 -> new MyFrame(new ImageData("src/inputs/many_dots_input.png"));           //29 nodes
+                case 7 -> new MyFrame(new ImageData("src/inputs/random_dots_input.png"));           //29 nodes
             }
         }
         catch (Exception exc) {
