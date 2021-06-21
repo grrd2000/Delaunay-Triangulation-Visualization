@@ -26,7 +26,6 @@ public class DelaunayAlgorithm {
                     badTriangles.add(triangle);
             }
             List<LineSegment> polygon = new ArrayList<>();
-            //List<LineSegment> badEdges = new ArrayList<>();
             for(Triangle triangle : badTriangles) {
                 if (isEdgeUsed(badTriangles, triangle, triangle.AB) && !polygon.contains(triangle.AB))
                     polygon.add(triangle.AB);
@@ -34,109 +33,34 @@ public class DelaunayAlgorithm {
                     polygon.add(triangle.BC);
                 if (isEdgeUsed(badTriangles, triangle, triangle.CA) && !polygon.contains(triangle.CA))
                     polygon.add(triangle.CA);
-
-                //badEdges.addAll(triangle.edges);
             }
 
-            triangulation.removeAll(badTriangles);
+            this.triangulation.removeAll(badTriangles);
 
             for(LineSegment edge : polygon)
-                triangulation.add(new Triangle(point, edge));
-
-            //for(Triangle badTriangle : badTriangles) {
-            //    for(LineSegment edge : badTriangle.edges) {
-            //        int counter = 0;
-            //        for(LineSegment badEdge : badEdges) {
-            //            if(edge.equals(badEdge)) {
-            //                counter++;
-            //                break;
-            //            }
-            //        }
-            //        if(counter == 1) polygon.add(edge);
-            //    }
-            //}
-            //triangulation.removeAll(badTriangles);
-            //for(LineSegment edge : polygon) {
-            //        triangulation.add(new Triangle(point, edge));
-            //}
+                this.triangulation.add(new Triangle(point, edge));
         }
 
-        triangulation.removeIf(triangle ->
+        this.triangulation.removeIf(triangle ->
                 pointIsPartOfSuperTriangle(this.superTriangle, triangle.A) ||
                 pointIsPartOfSuperTriangle(this.superTriangle, triangle.B) ||
                 pointIsPartOfSuperTriangle(this.superTriangle, triangle.C));
 
-        //List<Triangle> tmpTriangles = new ArrayList<>(triangulation);       //usuwanie_supertroojkąta
-        //tmpTriangles.remove(0);
-        //for(Node2D superVertex : this.superTriangle.vertices) {
-        //    for(Triangle triangle : tmpTriangles) {
-        //        for(Node2D vertex : triangle.vertices) {
-        //            if(superVertex.equals(vertex)) {
-        //                triangulation.remove(triangle);
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
+        return this.triangulation;
+    }
 
-
-       /* for(Node2D point : pointsList) {
-            List<Triangle> badTriangles = new ArrayList<>();
-            for(Triangle triangle : triangulation) {
-                if(triangle.isInsideCircle(point)) {
-                    badTriangles.add(triangle);
-                }
-            }
-
-            List<LineSegment> edges = new ArrayList<>();
-
-            for(Triangle triangle : badTriangles) {
-                edges.addAll(triangle.edges);
-            }
-
-            for(int i = 0; i < badTriangles.size(); i++) {
-                for(LineSegment badEdge : badTriangles.get(i).edges) {
-                    for(int j = 0; j < edges.size(); j++) {
-                        if(!badEdge.equals(edges.get(j)) && i != j) {
-                            edges.remove(j);
-                            j--;
-                        }
-                    }
-                }
-            }
-            triangulation.removeAll(badTriangles);
-            for(LineSegment edge : edges) {
-                triangulation.add(new Triangle(point, edge));
+    public List<LineSegment> voronoiDiagram(List<Triangle> triangulation) {
+        List <LineSegment> voronoiDiagram = new ArrayList<>();
+        for(Triangle triangle : triangulation) {
+            for(Triangle triangle1 : triangulation) {
+                if (triangle.equals(triangle1)) continue;
+                if(triangle.AB.equals(triangle1.AB) || triangle.AB.equals(triangle1.BC) || triangle.AB.equals(triangle1.CA) ||
+                        triangle.BC.equals(triangle1.CA) || triangle.BC.equals(triangle1.BC) || triangle.CA.equals(triangle1.CA))
+                    voronoiDiagram.add(new LineSegment(triangle.circle.o, triangle1.circle.o));
             }
         }
-
-        for(Node2D superVertex : superTriangle.vertices) {
-            for(int i = 0; i < triangulation.size(); i++) {
-                for(int j = 0; j < 3; j++) {
-                    if (triangulation.get(i).vertices.get(j).equals(superVertex)) {
-                        triangulation.remove(triangulation.get(i));
-                        i--;
-                        break;
-                    }
-                }
-            }
-        }
-
-        for(int i = 0; i < triangulation.size(); i++) {
-            for(int j = 0; j < triangulation.size(); j++) {
-                if(triangulation.get(i).isTheSame(triangulation.get(j)) && i != j){
-                    triangulation.remove(j);
-                    j--;
-                }
-            }
-        }
-
-        for(int i = 0; i < triangulation.size(); i++) {
-            System.out.println(i + ":");
-            triangulation.get(i).print();
-        }*/
-
-        return triangulation;
+        System.out.println("Voronoi diagram: " + voronoiDiagram.size());
+        return voronoiDiagram;
     }
 
     private boolean isEdgeUsed(List<Triangle> toDelete, Triangle source, LineSegment e) {
