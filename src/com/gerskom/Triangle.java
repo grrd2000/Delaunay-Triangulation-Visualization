@@ -98,7 +98,7 @@ public class Triangle {
         Graphics2D g2D = (Graphics2D) g;
 
         g2D.setPaint(new Color(153,51,153));
-        g2D.setStroke(new BasicStroke(2f));
+        g2D.setStroke(new BasicStroke(2.25f));
         g2D.drawPolygon(xPoints, yPoints, 3);
         //g2D.setPaint(new Color(180,180,180));
         //g2D.fillPolygon(xPoints, yPoints, 3);

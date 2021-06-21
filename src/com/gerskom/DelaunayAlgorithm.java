@@ -22,32 +22,62 @@ public class DelaunayAlgorithm {
         for(Node2D point : pointsList) {
             List<Triangle> badTriangles = new ArrayList<>();
             for(Triangle triangle : triangulation) {
-                if(triangle.isInsideCircle(point))
+                if(triangle.isInsideCircle(point) && !point.equals(triangle.A) && !point.equals(triangle.B) && !point.equals(triangle.C))
                     badTriangles.add(triangle);
             }
             List<LineSegment> polygon = new ArrayList<>();
-            List<LineSegment> badEdges = new ArrayList<>();
-            for(Triangle triangle : badTriangles)
-                badEdges.addAll(triangle.edges);
-            for(Triangle badTriangle : badTriangles) {
-                for(LineSegment edge : badTriangle.edges) {
-                    int counter = 0;
-                    for(LineSegment badEdge : badEdges) {
-                        if(edge.equals(badEdge)) {
-                            counter++;
-                            break;
-                        }
-                    }
-                    if(counter == 1) polygon.add(edge);
-                }
+            //List<LineSegment> badEdges = new ArrayList<>();
+            for(Triangle triangle : badTriangles) {
+                if (isEdgeUsed(badTriangles, triangle, triangle.AB) && !polygon.contains(triangle.AB))
+                    polygon.add(triangle.AB);
+                if (isEdgeUsed(badTriangles, triangle, triangle.BC) && !polygon.contains(triangle.BC))
+                    polygon.add(triangle.BC);
+                if (isEdgeUsed(badTriangles, triangle, triangle.CA) && !polygon.contains(triangle.CA))
+                    polygon.add(triangle.CA);
+
+                //badEdges.addAll(triangle.edges);
             }
+
             triangulation.removeAll(badTriangles);
-            for(LineSegment edge : polygon) {
-                    triangulation.add(new Triangle(point, edge));
-            }
+
+            for(LineSegment edge : polygon)
+                triangulation.add(new Triangle(point, edge));
+
+            //for(Triangle badTriangle : badTriangles) {
+            //    for(LineSegment edge : badTriangle.edges) {
+            //        int counter = 0;
+            //        for(LineSegment badEdge : badEdges) {
+            //            if(edge.equals(badEdge)) {
+            //                counter++;
+            //                break;
+            //            }
+            //        }
+            //        if(counter == 1) polygon.add(edge);
+            //    }
+            //}
+            //triangulation.removeAll(badTriangles);
+            //for(LineSegment edge : polygon) {
+            //        triangulation.add(new Triangle(point, edge));
+            //}
         }
 
+        triangulation.removeIf(triangle ->
+                pointIsPartOfSuperTriangle(this.superTriangle, triangle.A) ||
+                pointIsPartOfSuperTriangle(this.superTriangle, triangle.B) ||
+                pointIsPartOfSuperTriangle(this.superTriangle, triangle.C));
 
+        //List<Triangle> tmpTriangles = new ArrayList<>(triangulation);       //usuwanie_supertroojkąta
+        //tmpTriangles.remove(0);
+        //for(Node2D superVertex : this.superTriangle.vertices) {
+        //    for(Triangle triangle : tmpTriangles) {
+        //        for(Node2D vertex : triangle.vertices) {
+        //            if(superVertex.equals(vertex)) {
+        //                triangulation.remove(triangle);
+        //                break;
+        //            }
+        //        }
+        //    }
+        //}
 
 
        /* for(Node2D point : pointsList) {
@@ -107,5 +137,19 @@ public class DelaunayAlgorithm {
         }*/
 
         return triangulation;
+    }
+
+    private boolean isEdgeUsed(List<Triangle> toDelete, Triangle source, LineSegment e) {
+        for(Triangle t : toDelete) {
+            if(t.equals(source))
+                continue;
+            if(t.AB.equals(e) || t.BC.equals(e) || t.CA.equals(e))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean pointIsPartOfSuperTriangle(Triangle superTriangle, Node2D p) {
+        return superTriangle.A.equals(p) || superTriangle.B.equals(p) || superTriangle.C.equals(p);
     }
 }
