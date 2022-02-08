@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int choice = 7;
+        int choice = 6;
 
         try {
             switch(choice) {
